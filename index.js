@@ -21,8 +21,14 @@ app.use(cors({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// mount your contact route
+// contact route
 app.use("/send", contactRoutes);
+
+// ping route to wake up the back end a the opening of the front end (render free tier)
+app.get('/ping', (_req, res) => {
+  res.status(200).send('pong');
+  console.log("ping received ")
+});
 
 // Start server 
 const PORT =  3000;
