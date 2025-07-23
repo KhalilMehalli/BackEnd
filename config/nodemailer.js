@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 const FROM_EMAIL="serbaoloto@gmail.com"
 
@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
 
 /* test in local
 transporter.verify(err => {
-  if (err) console.error(' smtp error:', err);
-  else     console.log('smtp good');
+  if (err) console.error(" smtp error:", err);
+  else     console.log("smtp good");
 });
 */
 
