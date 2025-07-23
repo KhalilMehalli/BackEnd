@@ -8,7 +8,11 @@ const app = express();
 
 //  Enable cors because my front and back are not in the same host 
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:4173", "https://mohamed-khalil-mehalli-etu.pedaweb.univ-amu.fr/extranet/Site%20perso/htmlfr/index.html"],
+  origin: [
+    "http://localhost:5173", 
+    "http://localhost:4173", 
+    "https://mohamed-khalil-mehalli-etu.pedaweb.univ-amu.fr"
+],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
