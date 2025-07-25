@@ -3,6 +3,7 @@ const express    = require("express");
 const http    = require("http");
 const cors       = require("cors");
 const { Server } = require("socket.io");
+const { loadLast, append } = require("./config/gistDb");
 
 const contactRoutes = require("./routes/contactForm");
 
@@ -46,18 +47,25 @@ const io = new Server(server, {
   }
 });
 
-
+let users;
 //
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
+  users++;
   console.log("Nouvelle connexion :", socket.id);
+
+  // Send the last 20 texts history 
+  const history = await loadLast(20);
+  socket.emit("previousMessages", history);
 
   socket.on("chat message", (msg) => {
     socket.broadcast.emit("chat message", msg);   // diffuse à tous
+    append(msg); // Save the message in the buffer
     console.log(msg)
   });
 
   socket.on("disconnect", () => {
     console.log("Déconnexion :", socket.id);
+    users--;
   });
 });
 
