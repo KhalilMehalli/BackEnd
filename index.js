@@ -47,25 +47,31 @@ const io = new Server(server, {
   }
 });
 
-let users;
-//
+// Socket 
+let users=0;
+
 io.on("connection", async (socket) => {
   users++;
-  console.log("Nouvelle connexion :", socket.id);
 
-  // Send the last 20 texts history 
+  io.emit("usersCount", users); // broadcast the new count of people
+  console.log("Users:", users);
+
+  // Send the last 20 texts history ( from memory )
   const history = await loadLast(20);
   socket.emit("previousMessages", history);
 
   socket.on("chat message", (msg) => {
-    socket.broadcast.emit("chat message", msg);   // diffuse à tous
+    socket.broadcast.emit("chat message", msg);   // broacast all user except the sender
     append(msg); // Save the message in the buffer
     console.log(msg)
   });
 
+
+
   socket.on("disconnect", () => {
-    console.log("Déconnexion :", socket.id);
     users--;
+    io.emit("usersCount", users);
+    console.log("Users:", users);
   });
 });
 

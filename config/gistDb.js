@@ -9,7 +9,6 @@ const MAX_HISTORY       = 500;       // Only 500 messages for the history
 // Read all the content of the file
 async function _readAll() {
   const { data } = await octokit.gists.get({ gist_id: GIST_ID });
-  console.log(data.files[FILENAME].content)
   return data.files[FILENAME].content || "";
 }
 
