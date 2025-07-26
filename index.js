@@ -71,7 +71,7 @@ io.on("connection", async (socket) => {
   socket.on("disconnect", () => {
     users--;
     io.emit("usersCount", users);
-    console.log("Users:", users);
+    console.log("Users:", users, "ID socket left:", socket.id);
   });
 });
 
