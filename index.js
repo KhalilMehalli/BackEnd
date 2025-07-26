@@ -54,7 +54,7 @@ io.on("connection", async (socket) => {
   users++;
 
   io.emit("usersCount", users); // broadcast the new count of people
-  console.log("Users:", users);
+  console.log("Users:", users,"ID socket:", socket.id);
 
   // Send the last 20 texts history ( from memory )
   const history = await loadLast(20);
